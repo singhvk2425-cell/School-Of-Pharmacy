@@ -8,177 +8,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root {
-            --primary: #1b5e20; /* Deep Green */
-            --secondary: #ffd600; /* Gold/Yellow */
-            --dark: #1a1a1a;
-            --light: #f4f7f4;
-            --white: #ffffff;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background-color: var(--light);
-            color: #333;
-            scroll-behavior: smooth;
-        }
-
-        /* Header Section */
-        header {
-            background: var(--primary);
-            color: var(--white);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 5px solid var(--secondary);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        header h1 { margin: 0; font-size: 2.2rem; text-transform: uppercase; }
-        header p { margin: 5px 0; font-weight: 300; }
+        :root { --primary: #1b5e20; --secondary: #ffd600; --dark: #1a1a1a; --light: #f4f7f4; --white: #ffffff; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: var(--light); color: #333; }
+        
+        header { background: var(--primary); color: var(--white); padding: 30px 20px; text-align: center; border-bottom: 5px solid var(--secondary); position: relative;}
+        
+        /* Admin Login Button (Top Right) */
+        .admin-login-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; }
 
         .container { max-width: 1100px; margin: auto; padding: 20px; }
-
-        /* Admission Button (Floating Style) */
-        .admission-btn {
-            background: #d32f2f;
-            color: white;
-            padding: 18px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: 0.3s;
-            display: block;
-        }
+        
+        .admission-btn { background: #d32f2f; color: white; padding: 18px; text-align: center; font-weight: 700; font-size: 1.2rem; border-radius: 8px; cursor: pointer; border: none; width: 100%; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s; display: block; }
         .admission-btn:hover { background: #b71c1c; transform: scale(1.02); }
 
-        /* Main Content Layout */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-        }
-
+        .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
         @media (max-width: 850px) { .grid-layout { grid-template-columns: 1fr; } }
 
-        .card {
-            background: var(--white);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
+        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        h2 { color: var(--primary); border-left: 6px solid var(--secondary); padding-left: 15px; margin-top: 0; font-size: 1.4rem; text-transform: uppercase; }
 
-        h2 {
-            color: var(--primary);
-            border-left: 6px solid var(--secondary);
-            padding-left: 15px;
-            margin-top: 0;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-        }
+        /* Modal Styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+        .modal-content { background-color: var(--white); margin: 5% auto; padding: 30px; border-radius: 15px; width: 90%; max-width: 450px; position: relative; animation: slideDown 0.4s ease; }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 25px; cursor: pointer; color: #666; }
 
-        /* Fee Table */
-        .table-responsive { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th { background: var(--primary); color: white; padding: 12px; font-size: 0.9rem; }
-        td { padding: 12px; border-bottom: 1px solid #eee; text-align: center; font-size: 0.85rem; }
-        tr:hover { background: #f9f9f9; }
-
-        /* Popup Modal Styles */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0; top: 0; 
-            width: 100%; height: 100%; 
-            background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: var(--white);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 450px;
-            position: relative;
-            animation: slideDown 0.4s ease;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .close-btn {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 25px;
-            cursor: pointer;
-            color: #666;
-        }
-
-        /* Form Inputs */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        .submit-btn { background: var(--primary); color: white; border: none; width: 100%; padding: 15px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 1rem; }
 
-        .submit-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 6px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-        .submit-btn:hover { background: #144617; }
-
-        /* Sidebar info */
-        .contact-box {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        .contact-box h3 { color: var(--secondary); }
-
-        footer {
-            background: var(--dark);
-            color: #999;
-            text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-        }
+        footer { background: var(--dark); color: #999; text-align: center; padding: 30px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
 <header>
+    <button class="admin-login-btn" onclick="adminLogin()"><i class="fas fa-user-shield"></i> Admin Panel</button>
     <div class="container">
         <h1>AL-KARIM UNIVERSITY, KATIHAR</h1>
-        <p>Recognized by UGC | Approved by PCI, Govt. of India</p>
-        <p style="font-weight: 600; color: var(--secondary);">SCHOOL OF PHARMACY</p>
+        <p>SCHOOL OF PHARMACY (Recognized by UGC & PCI)</p>
     </div>
 </header>
 
@@ -190,62 +59,22 @@
     <div class="grid-layout">
         <div class="content-area">
             <div class="card">
-                <h2>About School of Pharmacy</h2>
-                <p>Al-Karim University's School of Pharmacy is dedicated to providing high-quality pharmaceutical education. With modern labs and expert faculty, we prepare students for the global healthcare industry.</p>
+                <h2>Program Details</h2>
+                <p><strong>B. Pharmacy:</strong> 4 Years | <strong>D. Pharmacy:</strong> 2 Years</p>
+                <p>Eligibility: 10+2 with Physics, Chemistry, Biology / Maths.</p>
             </div>
-
             <div class="card">
-                <h2>Fee Structure & Programs</h2>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Course</th>
-                                <th>Duration</th>
-                                <th>Seats</th>
-                                <th>Yearly Fee</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><b>B. Pharmacy</b></td>
-                                <td>4 Years</td>
-                                <td>60</td>
-                                <td>₹1,10,000</td>
-                            </tr>
-                            <tr>
-                                <td><b>D. Pharmacy</b></td>
-                                <td>2 Years</td>
-                                <td>60</td>
-                                <td>₹1,10,000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>Career Options</h2>
-                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                    <span style="background:#e8f5e9; padding:5px 15px; border-radius:20px; font-size:0.8rem; border:1px solid var(--primary);">Drug Inspector</span>
-                    <span style="background:#e8f5e9; padding:5px 15px; border-radius:20px; font-size:0.8rem; border:1px solid var(--primary);">Pharmacist</span>
-                    <span style="background:#e8f5e9; padding:5px 15px; border-radius:20px; font-size:0.8rem; border:1px solid var(--primary);">QC Manager</span>
-                    <span style="background:#e8f5e9; padding:5px 15px; border-radius:20px; font-size:0.8rem; border:1px solid var(--primary);">Clinical Research</span>
-                </div>
+                <h2>Campus Facilities</h2>
+                <p><i class="fas fa-check-circle" style="color:var(--primary)"></i> Modern Pharmaceutical Labs</p>
+                <p><i class="fas fa-check-circle" style="color:var(--primary)"></i> Herbal Garden & Museum</p>
+                <p><i class="fas fa-check-circle" style="color:var(--primary)"></i> Smart Classrooms & Wi-Fi Campus</p>
             </div>
         </div>
-
-        <div class="sidebar-area">
-            <div class="contact-box">
-                <h3>Contact Enquiry</h3>
-                <p><i class="fas fa-phone-alt"></i> +91-9472810107</p>
-                <p><i class="fas fa-envelope"></i> vksingh2425@gmail.com</p>
-                <hr style="border:0; border-top:1px solid rgba(255,255,255,0.2); margin:15px 0;">
-                <p><i class="fas fa-map-marker-alt"></i> Karim Bagh, Katihar, Bihar</p>
-                <div style="background:white; padding:10px; border-radius:8px; margin-top:15px;">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://alkarimuniversity.edu.in" alt="QR">
-                    <p style="color:black; font-size:0.7rem; margin:5px 0 0 0;">Scan for Website</p>
-                </div>
+        <div class="sidebar">
+            <div class="card" style="background:var(--primary); color:white; text-align:center;">
+                <h3>Contact Details</h3>
+                <p>+91-9472810107</p>
+                <p>vksingh2425@gmail.com</p>
             </div>
         </div>
     </div>
@@ -254,63 +83,48 @@
 <div id="admissionModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeForm()">&times;</span>
-        <h2 style="border:none; text-align:center; color:var(--primary);">Interested Students</h2>
-        <p style="text-align:center; font-size:0.8rem; margin-bottom:20px;">Please fill your details for admission enquiry.</p>
-        
+        <h2 style="border:none; text-align:center; color:var(--primary);">Enquiry Form</h2>
         <form action="https://formspree.io/f/mjgadywo" method="POST">
+            <div class="form-group"><label>Student Name</label><input type="text" name="Name" required></div>
+            <div class="form-group"><label>Phone Number</label><input type="tel" name="Phone" required></div>
             <div class="form-group">
-                <label>Student Name</label>
-                <input type="text" name="Student_Name" placeholder="Enter Full Name" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Contact Number</label>
-                <input type="tel" name="Phone_Number" placeholder="Enter Mobile No." required>
-            </div>
-            
-            <div class="form-group">
-                <label>Select Your Course</label>
-                <select name="Course_Interested" required>
-                    <option value="">-- Select Course --</option>
-                    <option value="B. Pharmacy">B. Pharmacy</option>
-                    <option value="D. Pharmacy">D. Pharmacy</option>
-                    <option value="B. Pharm Lateral">B. Pharm (Lateral Entry)</option>
+                <label>Select Course</label>
+                <select name="Course" required>
+                    <option value="B.Pharm">B. Pharmacy</option>
+                    <option value="D.Pharm">D. Pharmacy</option>
                 </select>
             </div>
-            
-            <div class="form-group">
-                <label>Highest Qualification</label>
-                <input type="text" name="Qualification" placeholder="e.g. 12th PCB/PCM" required>
-            </div>
-
-            <input type="hidden" name="_subject" value="New Admission Enquiry - SOP Pharmacy">
-
+            <div class="form-group"><label>Highest Qualification</label><input type="text" name="Qualification" required></div>
             <button type="submit" class="submit-btn">SUBMIT DETAILS</button>
         </form>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 Al-Karim University - School of Pharmacy</p>
-    <p style="font-size:0.7rem;">Karim Bagh, Katihar, Bihar - 854106</p>
+    <p>&copy; 2026 Al-Karim University | Katihar, Bihar</p>
 </footer>
 
 <script>
-    var modal = document.getElementById("admissionModal");
+    // Functions for Admission Modal
+    function openForm() { document.getElementById("admissionModal").style.display = "block"; }
+    function closeForm() { document.getElementById("admissionModal").style.display = "none"; }
 
-    function openForm() {
-        modal.style.display = "block";
-    }
-
-    function closeForm() {
-        modal.style.display = "none";
-    }
-
-    // Close if clicked outside
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    // Admin Login Logic (Password Protected)
+    function adminLogin() {
+        var password = prompt("Please enter Admin Password:");
+        
+        // Aap yahan apna pasandida password rakhein (Default: vksingh123)
+        if (password === "vksingh123") {
+            alert("Login Successful! Redirecting to Student Submissions...");
+            // Yeh aapko Formspree ke submission page par le jayega jahan saari list hai
+            window.location.href = "https://formspree.io/forms/mjgadywo/submissions";
+        } else {
+            alert("Wrong Password! Access Denied.");
         }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("admissionModal")) { closeForm(); }
     }
 </script>
 
