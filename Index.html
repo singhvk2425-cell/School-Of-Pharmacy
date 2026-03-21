@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School of Pharmacy | Al-Karim University</title>
+    <style>
+        :root {
+            --dark-green: #0a4d1f;
+            --light-green: #e8f5e9;
+            --accent-yellow: #ffd600;
+        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
+        
+        /* Header */
+        .main-header { background: var(--dark-green); color: white; text-align: center; padding: 20px; border-bottom: 4px solid var(--accent-yellow); }
+        .header-content h1 { margin: 0; font-size: 28px; }
+        
+        .sub-header { background: #fff; text-align: center; padding: 10px; color: var(--dark-green); border-bottom: 2px solid #ddd; }
+        
+        .container { max-width: 1100px; margin: 20px auto; display: flex; flex-wrap: wrap; gap: 20px; padding: 10px; }
+        
+        /* Sections */
+        .section-box { background: white; border: 1px solid #ccc; flex: 1; min-width: 300px; }
+        .section-title { background: var(--dark-green); color: white; padding: 10px; margin: 0; text-align: center; text-transform: uppercase; }
+        
+        .content-padding { padding: 15px; }
+        
+        /* Table Style */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background: #4caf50; color: white; padding: 8px; font-size: 12px; }
+        td { border: 1px solid #ddd; padding: 8px; text-align: center; font-size: 12px; }
+        tr:nth-child(even) { background: #f9f9f9; }
+
+        /* Image Placeholders */
+        .img-placeholder { background: #ddd; width: 100%; height: 150px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        
+        .admission-tag { background: red; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold; animation: blink 1s infinite; }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.5;} 100% {opacity: 1;} }
+        
+        footer { background: var(--dark-green); color: white; text-align: center; padding: 20px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-content">
+        <h1>AL-KARIM UNIVERSITY, KATIHAR</h1>
+        <p>Recognized by UGC | Approved by PCI</p>
+    </div>
+</header>
+
+<div class="sub-header">
+    <h2>SCHOOL OF PHARMACY <span class="admission-tag">Admission Open 2024</span></h2>
+</div>
+
+<div class="container">
+    <div style="flex: 2;">
+        <div class="section-box">
+            <h3 class="section-title">Welcome & Leadership</h3>
+            <div class="content-padding">
+                <p><strong>Message from Dean:</strong> Hamara uddeshya pharmacy ke kshetra mein ucch shiksha aur research ko badhava dena hai.</p>
+                <div style="display: flex; gap: 10px; text-align: center;">
+                    <div><div class="img-placeholder">Photo</div><small>Chancellor</small></div>
+                    <div><div class="img-placeholder">Photo</div><small>Vice-Chancellor</small></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box" style="margin-top:20px;">
+            <h3 class="section-title">Academic Programs & Fees</h3>
+            <div class="content-padding">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Duration</th>
+                            <th>Seats</th>
+                            <th>Admission Fee</th>
+                            <th>Tuition Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>D. Pharmacy</td><td>2 Years</td><td>60</td><td>25,000</td><td>1,10,000</td></tr>
+                        <tr><td>B. Pharmacy</td><td>4 Years</td><td>60</td><td>25,000</td><td>1,10,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div style="flex: 1;">
+        <div class="section-box">
+            <h3 class="section-title">Campus Facilities</h3>
+            <div class="content-padding">
+                <ul>
+                    <li>Computer Lab</li>
+                    <li>Herbal Garden</li>
+                    <li>Modern Library</li>
+                    <li>Smart Classrooms</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-box" style="margin-top:20px;">
+            <h3 class="section-title">Contact & Enquiry</h3>
+            <div class="content-padding">
+                <p>📞 +91-6452-249212</p>
+                <p>📧 info@alkarimuniversity.edu.in</p>
+                <div class="img-placeholder">QR CODE</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Al-Karim University. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
