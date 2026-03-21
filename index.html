@@ -4,162 +4,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOP | Al-Karim University</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root { --primary: #1b5e20; --secondary: #ffd600; --dark: #1a1a1a; --white: #ffffff; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f4; }
+        :root { --primary: #1b5e20; --secondary: #ffd600; --dark: #1a1a1a; --light: #f4f7f4; --white: #ffffff; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: var(--light); color: #333; }
         
-        /* Navigation */
-        nav { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--secondary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .nav-logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 1px; }
-        .admin-btn { background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 6px 15px; border-radius: 4px; cursor: pointer; transition: 0.3s; }
-        .admin-btn:hover { background: white; color: var(--primary); }
+        /* Header Section */
+        header { background: var(--primary); color: var(--white); padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--secondary); position: relative; }
+        header h1 { margin: 0; font-size: 2.2rem; text-transform: uppercase; }
+        .admin-trigger { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.1); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; }
 
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
 
-        /* Page Toggle */
-        .page { display: none; animation: fadeIn 0.5s ease; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Admission Button */
+        .admission-btn { background: #d32f2f; color: white; padding: 18px; text-align: center; font-weight: 700; font-size: 1.2rem; border-radius: 8px; cursor: pointer; border: none; width: 100%; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s; display: block; }
+        .admission-btn:hover { background: #b71c1c; transform: scale(1.01); }
 
-        /* Cards & Forms */
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        h2 { color: var(--primary); margin-top: 0; text-align: center; text-transform: uppercase; font-size: 1.5rem; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins'; }
-        .btn-submit { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 1rem; margin-top: 10px; }
+        /* Professional Layout */
+        .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        @media (max-width: 850px) { .grid-layout { grid-template-columns: 1fr; } }
 
-        /* Admin Dashboard UI */
-        .admin-title-box { background: var(--primary); color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center; }
-        .admin-title-box h1 { margin: 0; font-size: 1.8rem; }
-        .admin-title-box p { margin: 5px 0 0 0; color: var(--secondary); font-weight: 600; letter-spacing: 2px; }
+        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        h2 { color: var(--primary); border-left: 6px solid var(--secondary); padding-left: 15px; margin-top: 0; font-size: 1.4rem; text-transform: uppercase; }
 
-        .table-wrapper { background: white; padding: 20px; border-radius: 0 0 8px 8px; overflow-x: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th { background: #f8f9fa; color: #555; padding: 15px; text-align: left; border-bottom: 2px solid #eee; }
-        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; color: #333; }
-        tr:hover { background: #f1f8e9; }
+        /* Table Style */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { background: var(--primary); color: white; padding: 12px; font-size: 0.9rem; }
+        td { padding: 12px; border-bottom: 1px solid #eee; text-align: center; font-size: 0.85rem; }
 
-        .logout-btn { background: #d32f2f; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+        /* Modal / Popup */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 15px; width: 90%; max-width: 450px; position: relative; }
+        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 25px; cursor: pointer; }
+
+        /* Admin Dashboard View */
+        #adminDashboard { display: none; background: white; border-radius: 12px; overflow: hidden; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .admin-banner { background: var(--primary); color: white; padding: 20px; text-align: center; }
+        .admin-banner h1 { margin: 0; font-size: 1.8rem; }
+        .admin-banner p { margin: 5px 0 0 0; color: var(--secondary); letter-spacing: 2px; font-weight: 600; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins'; }
+        .submit-btn { background: var(--primary); color: white; border: none; width: 100%; padding: 15px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+        footer { background: var(--dark); color: #999; text-align: center; padding: 30px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="nav-logo">AL-KARIM UNIVERSITY</div>
-    <button class="admin-btn" id="loginBtn" onclick="handleAdminAuth()">
-        <i class="fas fa-user-shield"></i> Admin Login
-    </button>
-</nav>
+<header>
+    <button class="admin-trigger" onclick="adminAuth()">Admin Login</button>
+    <div class="container">
+        <h1>AL-KARIM UNIVERSITY, KATIHAR</h1>
+        <p>Recognized by UGC | Approved by PCI, Govt. of India</p>
+    </div>
+</header>
 
-<div class="container">
+<div class="container" id="mainContent">
+    <div id="studentView">
+        <button class="admission-btn" onclick="openForm()">
+            <i class="fas fa-edit"></i> ADMISSION OPEN 2026 - CLICK TO APPLY
+        </button>
 
-    <div id="studentPage" class="page active">
-        <div class="card">
-            <h2>School of Pharmacy - Admission 2026</h2>
-            <p style="text-align:center; color:#666; margin-bottom:20px;">Interested students, please fill the details below.</p>
-            
-            <form action="https://formspree.io/f/mjgadywo" method="POST" id="enquiryForm">
-                <input type="text" name="Student_Name" placeholder="Full Name" required>
-                <input type="tel" name="Contact_Number" placeholder="Mobile Number" required>
-                <select name="Course" required>
-                    <option value="">-- Select Your Course --</option>
-                    <option value="B. Pharmacy">B. Pharmacy</option>
-                    <option value="D. Pharmacy">D. Pharmacy</option>
-                </select>
-                <input type="text" name="Qualification" placeholder="Highest Qualification (e.g. 12th PCB)" required>
-                
-                <button type="submit" class="btn-submit">SUBMIT DETAILS</button>
-            </form>
+        <div class="grid-layout">
+            <div class="content-area">
+                <div class="card">
+                    <h2>About School of Pharmacy</h2>
+                    <p>The School of Pharmacy at Al-Karim University is dedicated to providing high-quality pharmaceutical education with modern labs and experienced faculty.</p>
+                </div>
+                <div class="card">
+                    <h2>Fee Structure</h2>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr><th>Course</th><th>Duration</th><th>Intake</th><th>Fee (p.a.)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>B. Pharmacy</td><td>4 Years</td><td>60</td><td>₹1,10,000</td></tr>
+                                <tr><td>D. Pharmacy</td><td>2 Years</td><td>60</td><td>₹1,10,000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar">
+                <div class="card" style="background:var(--primary); color:white; text-align:center;">
+                    <h3>Enquiry</h3>
+                    <p>+91-9472810107</p>
+                    <p>vksingh2425@gmail.com</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div id="adminPage" class="page">
-        <div class="admin-title-box">
+    <div id="adminDashboard">
+        <div class="admin-banner">
             <h1>SCHOOL OF PHARMACY</h1>
             <p>INTERESTED STUDENTS DETAILS</p>
         </div>
-        
-        <div class="table-wrapper">
-            <table id="studentTable">
+        <div style="padding: 20px; overflow-x: auto;">
+            <table id="adminTable">
                 <thead>
                     <tr>
-                        <th><i class="fas fa-user"></i> Name</th>
-                        <th><i class="fas fa-phone"></i> Contact</th>
-                        <th><i class="fas fa-book"></i> Course</th>
-                        <th><i class="fas fa-graduation-cap"></i> Qualification</th>
-                        <th><i class="fas fa-calendar-alt"></i> Date</th>
+                        <th>Name</th><th>Contact</th><th>Course</th><th>Qualification</th><th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    <tr>
-                        <td colspan="5" style="text-align:center; color:#999;">Loading details from database...</td>
-                    </tr>
+                <tbody id="adminTableBody">
+                    <tr><td colspan="5">No data available. Details are sent to your Email.</td></tr>
                 </tbody>
             </table>
-            
-            <button class="logout-btn" onclick="logoutAdmin()">Logout Admin</button>
+            <button onclick="window.location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">Logout Admin</button>
         </div>
     </div>
-
 </div>
 
-<script>
-    // Admin Password Setting
-    const ADMIN_PASS = "vksingh123";
+<div id="admissionModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeForm()">&times;</span>
+        <h2 style="border:none; text-align:center; color:var(--primary);">Enquiry Form</h2>
+        <form action="https://formspree.io/f/mjgadywo" method="POST">
+            <div class="form-group"><input type="text" name="Name" placeholder="Full Name" required></div>
+            <div class="form-group"><input type="tel" name="Phone" placeholder="Mobile Number" required></div>
+            <div class="form-group">
+                <select name="Course" required>
+                    <option value="B.Pharm">B. Pharmacy</option>
+                    <option value="D.Pharm">D. Pharmacy</option>
+                </select>
+            </div>
+            <div class="form-group"><input type="text" name="Qualification" placeholder="Highest Qualification" required></div>
+            <button type="submit" class="submit-btn">SUBMIT DETAILS</button>
+        </form>
+    </div>
+</div>
 
-    function handleAdminAuth() {
-        const pass = prompt("Enter Admin Password to view details:");
-        if (pass === ADMIN_PASS) {
-            showAdminDashboard();
-        } else if (pass !== null) {
-            alert("Incorrect Password!");
+<footer>
+    <p>&copy; 2026 Al-Karim University | School of Pharmacy</p>
+</footer>
+
+<script>
+    function openForm() { document.getElementById("admissionModal").style.display = "block"; }
+    function closeForm() { document.getElementById("admissionModal").style.display = "none"; }
+
+    function adminAuth() {
+        var pass = prompt("Enter Admin Password:");
+        if (pass === "vksingh123") {
+            document.getElementById("studentView").style.display = "none";
+            document.getElementById("adminDashboard").style.display = "block";
+            alert("Welcome Admin! You can check your email for full student logs.");
+        } else {
+            alert("Wrong Password!");
         }
     }
 
-    function showAdminDashboard() {
-        document.getElementById('studentPage').classList.remove('active');
-        document.getElementById('adminPage').classList.add('active');
-        document.getElementById('loginBtn').style.display = 'none';
-        
-        // Agar aapne Google Sheet connect kiya hai to yahan fetch lagayein
-        // Abhi ke liye ye Formspree submissions par redirect kar sakta hai 
-        // Ya agar aap Google Sheet link denge to main table load kar dunga
-        loadMockData(); 
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("admissionModal")) { closeForm(); }
     }
-
-    function logoutAdmin() {
-        window.location.reload(); // Simple refresh to go back to student view
-    }
-
-    function loadMockData() {
-        // NOTE: Ye demo ke liye hai. Real data ke liye aapko Formspree dashboard 
-        // ya Google Sheet URL ki zarurat hogi.
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = `
-            <tr>
-                <td>Rahul Kumar</td>
-                <td>9876543210</td>
-                <td>B. Pharmacy</td>
-                <td>12th PCB</td>
-                <td>21-Mar-2026</td>
-            </tr>
-            <tr>
-                <td>Sneha Singh</td>
-                <td>8877665544</td>
-                <td>D. Pharmacy</td>
-                <td>12th PCM</td>
-                <td>20-Mar-2026</td>
-            </tr>
-        `;
-    }
-
-    // Modal behavior for Formspree
-    const form = document.getElementById('enquiryForm');
-    form.onsubmit = function() {
-        // Data submit hone ke baad redirect automatic Formspree sambhalega
-    };
 </script>
-
 </body>
 </html>
