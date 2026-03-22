@@ -182,7 +182,6 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwvHQ5AGeZ5GSpnEjsXAUXAQqyqje5x4OfWINCHSmWxNFJGMmVj-JjJv-_PP7J2bWYJ/exec';
 
-    // Live Clock Logic
     function updateTime() {
         const now = new Date();
         document.getElementById('liveDate').innerText = now.toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'});
@@ -190,23 +189,21 @@
     }
     setInterval(updateTime, 1000); updateTime();
 
-    // Form Submit
     const form = document.getElementById('admissionForm');
     form.addEventListener('submit', e => {
         e.preventDefault();
         document.getElementById('sbtn').innerText = "Sending...";
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(() => { 
+        .then(response => {
             alert("Success! Details Saved."); 
             window.location.reload(); 
         })
-        .catch(() => { 
+        .catch(error => { 
             alert("Error! Please check Deployment settings."); 
             document.getElementById('sbtn').innerText = "SUBMIT DETAILS"; 
         });
     });
 
-    // Admin Login
     function adminLogin() {
         if (prompt("Enter Admin Password:") === "vksingh123") {
             document.getElementById('studentPage').classList.remove('active');
@@ -215,14 +212,13 @@
         }
     }
 
-    // Load Data into Table
     function loadData() {
         const tableBody = document.getElementById('tableBody');
         fetch(scriptURL)
         .then(res => res.json())
         .then(data => {
             let html = "";
-            if (data.length <= 1) {
+            if (!data || data.length <= 1) {
                 html = '<tr><td colspan="6" style="text-align:center;">No records found.</td></tr>';
             } else {
                 for(let i=1; i < data.length; i++) {
@@ -239,11 +235,10 @@
             tableBody.innerHTML = html;
         })
         .catch(err => {
-            tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Error: Access Denied. Deploy as "Anyone".</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Error: Access Denied. Make sure "Anyone" is selected in Apps Script.</td></tr>';
         });
     }
 
-    // Excel Export
     function exportToExcel() {
         const table = document.getElementById("adminTable");
         const wb = XLSX.utils.table_to_book(table, {sheet: "EnquiryList"});
