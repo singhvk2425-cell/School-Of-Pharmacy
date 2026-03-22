@@ -55,7 +55,8 @@
         table { width: 100%; border-collapse: collapse; min-width: 800px; }
         th { background: #f8f9fa; padding: 15px; text-align: left; color: #555; border-bottom: 2px solid #eee; font-size: 0.85rem; }
         td { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        .del-btn { color: var(--danger); background: none; border: 1px solid var(--danger); padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .del-btn { color: var(--danger); background: none; border: 1px solid var(--danger); padding: 5px 10px; border-radius: 4px; cursor: pointer; transition: 0.3s; }
+        .del-btn:hover { background: var(--danger); color: white; }
 
         /* Modal Styles */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
@@ -145,11 +146,11 @@
                             <th>Course</th>
                             <th>Qualification</th>
                             <th>Date</th>
-                            <th class="del-col">Action</th>
+                            <th class="del-col no-print">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <tr><td colspan="6" style="text-align:center;">Loading Records...</td></tr>
+                        <tr><td colspan="6" style="text-align:center;">Fetching Records from Google Sheet...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -195,8 +196,14 @@
         e.preventDefault();
         document.getElementById('sbtn').innerText = "Sending...";
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(() => { alert("Success! Details Saved."); window.location.reload(); })
-        .catch(() => { alert("Error! Please check if your Google Script is deployed as 'Anyone'."); document.getElementById('sbtn').innerText = "SUBMIT DETAILS"; });
+        .then(() => { 
+            alert("Success! Details Saved."); 
+            window.location.reload(); 
+        })
+        .catch(() => { 
+            alert("Error! Please check Deployment settings."); 
+            document.getElementById('sbtn').innerText = "SUBMIT DETAILS"; 
+        });
     });
 
     // Admin Login
@@ -210,20 +217,29 @@
 
     // Load Data into Table
     function loadData() {
-        fetch(scriptURL).then(res => res.json()).then(data => {
+        const tableBody = document.getElementById('tableBody');
+        fetch(scriptURL)
+        .then(res => res.json())
+        .then(data => {
             let html = "";
-            // Skip header row
-            for(let i=1; i < data.length; i++) {
-                html += `<tr>
-                    <td><strong>${data[i][0] || 'N/A'}</strong></td>
-                    <td>${data[i][1] || 'N/A'}</td>
-                    <td>${data[i][2] || 'N/A'}</td>
-                    <td>${data[i][3] || 'N/A'}</td>
-                    <td>${data[i][4] || 'N/A'}</td>
-                    <td class="del-col"><button class="del-btn" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
-                </tr>`;
+            if (data.length <= 1) {
+                html = '<tr><td colspan="6" style="text-align:center;">No records found.</td></tr>';
+            } else {
+                for(let i=1; i < data.length; i++) {
+                    html += `<tr>
+                        <td><strong>${data[i][0] || 'N/A'}</strong></td>
+                        <td>${data[i][1] || 'N/A'}</td>
+                        <td>${data[i][2] || 'N/A'}</td>
+                        <td>${data[i][3] || 'N/A'}</td>
+                        <td>${data[i][4] || 'N/A'}</td>
+                        <td class="del-col no-print"><button class="del-btn" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i> Delete</button></td>
+                    </tr>`;
+                }
             }
-            document.getElementById('tableBody').innerHTML = html;
+            tableBody.innerHTML = html;
+        })
+        .catch(err => {
+            tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Error: Access Denied. Deploy as "Anyone".</td></tr>';
         });
     }
 
