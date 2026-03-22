@@ -4,138 +4,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOP | Al-Karim University</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root { --primary: #1b5e20; --secondary: #ffd600; --dark: #1a1a1a; --white: #ffffff; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f4; }
+        :root { --primary: #1b5e20; --secondary: #ffd600; --dark: #1a1a1a; --light: #f4f7f4; --white: #ffffff; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: var(--light); color: #333; }
+        
+        /* Navigation & Header (Purana Style) */
         nav { background: var(--primary); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--secondary); }
-        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
-        .page { display: none; }
-        .active { display: block; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
-        .btn-apply { background: #d32f2f; color: white; padding: 15px; width: 100%; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1.1rem; }
-        .admin-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .admin-header { background: var(--primary); color: white; padding: 20px; text-align: center; border-bottom: 4px solid var(--secondary); }
+        header { background: var(--primary); color: var(--white); padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--secondary); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        header h1 { margin: 0; font-size: 2.2rem; text-transform: uppercase; }
+        header p { margin: 5px 0; font-weight: 300; }
+
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+
+        /* Admission Button (Red Style) */
+        .admission-btn { background: #d32f2f; color: white; padding: 18px; text-align: center; font-weight: 700; font-size: 1.2rem; border-radius: 8px; cursor: pointer; border: none; width: 100%; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s; display: block; }
+        .admission-btn:hover { background: #b71c1c; transform: scale(1.01); }
+
+        /* Professional Grid */
+        .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        @media (max-width: 850px) { .grid-layout { grid-template-columns: 1fr; } }
+
+        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        h2 { color: var(--primary); border-left: 6px solid var(--secondary); padding-left: 15px; margin-top: 0; font-size: 1.4rem; text-transform: uppercase; }
+
+        /* Table Style (For Admin View) */
+        .admin-dashboard { display: none; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .admin-banner { background: var(--primary); color: white; padding: 25px; text-align: center; border-bottom: 4px solid var(--secondary); }
         .table-wrap { padding: 20px; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th { background: #f8f9fa; padding: 12px; text-align: left; border-bottom: 2px solid #eee; font-size: 0.9rem; }
-        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.85rem; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        th { background: #f8f9fa; padding: 15px; text-align: left; border-bottom: 2px solid #eee; }
+        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.85rem; }
+
+        /* Form Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
         .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; position: relative; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        .btn-submit { background: var(--primary); color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 25px; cursor: pointer; color: #666; }
+        
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: 'Poppins'; }
+        .submit-btn { background: var(--primary); color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+
+        footer { background: var(--dark); color: #999; text-align: center; padding: 30px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
 <nav>
     <div style="font-weight: 700;">AL-KARIM UNIVERSITY</div>
-    <button onclick="adminLogin()" style="background:rgba(255,255,255,0.2); border:1px solid white; color:white; padding:5px 12px; border-radius:4px; cursor:pointer;">Admin Login</button>
+    <button onclick="adminLogin()" style="background:rgba(255,255,255,0.2); border:1px solid white; color:white; padding:5px 12px; border-radius:4px; cursor:pointer; font-size: 0.8rem;">Admin Login</button>
 </nav>
 
-<div class="container">
-    <div id="studentPage" class="page active">
-        <div class="card" style="background:var(--primary); color:white; margin-bottom:20px;">
-            <h1 style="margin:0;">SCHOOL OF PHARMACY</h1>
-            <p>Admission Open 2026</p>
+<div class="container" id="mainWrapper">
+    
+    <div id="studentView">
+        <header style="margin-bottom: 30px; border-radius: 12px;">
+            <h1>SCHOOL OF PHARMACY</h1>
+            <p>Recognized by UGC | Approved by PCI, Govt. of India</p>
+        </header>
+
+        <button class="admission-btn" onclick="document.getElementById('modal').style.display='block'">
+            <i class="fas fa-edit"></i> ADMISSION OPEN 2026 - CLICK TO APPLY
+        </button>
+
+        <div class="grid-layout">
+            <div class="content-area">
+                <div class="card">
+                    <h2>Program Eligibility</h2>
+                    <p><strong>B. Pharmacy:</strong> 10+2 with PCB/PCM (4 Years)</p>
+                    <p><strong>D. Pharmacy:</strong> 10+2 with PCB/PCM (2 Years)</p>
+                </div>
+                <div class="card">
+                    <h2>Campus Facilities</h2>
+                    <p><i class="fas fa-check-circle" style="color:var(--primary)"></i> Modern Labs & Smart Classrooms</p>
+                    <p><i class="fas fa-check-circle" style="color:var(--primary)"></i> Library with 4000+ Books</p>
+                </div>
+            </div>
+            <div class="sidebar">
+                <div class="card" style="background:var(--primary); color:white; text-align:center;">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone-alt"></i> +91-9472810107</p>
+                    <p><i class="fas fa-envelope"></i> vksingh2425@gmail.com</p>
+                </div>
+            </div>
         </div>
-        <button class="btn-apply" onclick="document.getElementById('modal').style.display='block'">🔥 APPLY NOW</button>
     </div>
 
-    <div id="adminPage" class="page">
-        <div class="admin-card">
-            <div class="admin-header">
-                <h2>SCHOOL OF PHARMACY</h2>
-                <p>INTERESTED STUDENTS DETAILS</p>
-            </div>
-            <div class="table-wrap">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Name</th><th>Phone</th><th>Course</th><th>Qualification</th><th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <tr><td colspan="5" style="text-align:center;">Loading records...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="text-align:center; padding:20px;">
-                <button onclick="window.location.reload()">Logout</button>
-            </div>
+    <div id="adminView" class="admin-dashboard">
+        <div class="admin-banner">
+            <h1>SCHOOL OF PHARMACY</h1>
+            <p>INTERESTED STUDENTS DETAILS</p>
+        </div>
+        <div class="table-wrap">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Name</th><th>Phone</th><th>Course</th><th>Qualification</th><th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr><td colspan="5" style="text-align:center;">Loading Records...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align:center; padding:20px;">
+            <button onclick="window.location.reload()" style="padding:10px 20px; cursor:pointer; border-radius:6px; border:1px solid #ccc;">Logout Admin</button>
         </div>
     </div>
+
 </div>
 
 <div id="modal" class="modal">
     <div class="modal-content">
-        <span onclick="document.getElementById('modal').style.display='none'" style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:24px;">&times;</span>
-        <h3 style="text-align:center;">Admission Enquiry</h3>
+        <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+        <h3 style="text-align:center; color:var(--primary); margin-top:0;">Admission Enquiry</h3>
         <form id="admissionForm">
             <input type="text" name="Name" placeholder="Full Name" required>
-            <input type="tel" name="Phone" placeholder="Contact Number" required>
+            <input type="tel" name="Phone" placeholder="Mobile Number" required>
             <select name="courses" required>
+                <option value="">-- Select Course --</option>
                 <option value="B.Pharmacy">B. Pharmacy</option>
                 <option value="D.Pharmacy">D. Pharmacy</option>
             </select>
-            <input type="text" name="Qualification" placeholder="Qualification" required>
-            <input type="hidden" name="Date" id="dBox">
-            <button type="submit" class="btn-submit" id="sbtn">Submit Details</button>
+            <input type="text" name="Qualification" placeholder="Highest Qualification" required>
+            <input type="hidden" name="Date" id="dateInput">
+            <button type="submit" class="submit-btn" id="subBtn">SUBMIT DETAILS</button>
         </form>
     </div>
 </div>
 
+<footer>
+    <p>&copy; 2026 AL-KARIM UNIVERSITY | SCHOOL OF PHARMACY</p>
+</footer>
+
 <script>
     const apiURL = 'https://sheetdb.io/api/v1/umxo1j9q6u77s';
+    const form = document.getElementById('admissionForm');
 
-    // Submit Form
-    document.getElementById('admissionForm').addEventListener('submit', function(e) {
+    // Submit Data to SheetDB
+    form.addEventListener('submit', e => {
         e.preventDefault();
-        document.getElementById('sbtn').innerText = "Sending...";
-        document.getElementById('dBox').value = new Date().toLocaleDateString();
+        document.getElementById('subBtn').innerText = "Sending...";
+        document.getElementById('dateInput').value = new Date().toLocaleDateString();
 
         fetch(apiURL, {
             method: 'POST',
-            body: new FormData(this)
+            body: new FormData(form)
         }).then(() => {
-            alert("Details Submitted!");
+            alert("Success! Details Submitted.");
             window.location.reload();
         });
     });
 
-    // Admin Login
+    // Admin Login Logic
     function adminLogin() {
-        if (prompt("Password:") === "vksingh123") {
-            document.getElementById('studentPage').style.display = 'none';
-            document.getElementById('adminPage').style.display = 'block';
-            loadData();
-        } else { alert("Wrong!"); }
+        if (prompt("Enter Password:") === "vksingh123") {
+            document.getElementById('studentView').style.display = 'none';
+            document.getElementById('adminView').style.display = 'block';
+            loadAdminData();
+        } else { alert("Wrong Password!"); }
     }
 
-    // Load Data Fix (Har tarah ki heading ko pakadne ke liye)
-    function loadData() {
+    // Load Data with Undefined Check
+    function loadAdminData() {
         fetch(apiURL).then(res => res.json()).then(data => {
             let html = "";
             data.forEach(row => {
-                // Hum small ya capital letters dono check kar rahe hain
-                let name = row.Name || row.name || 'N/A';
-                let phone = row.Phone || row.phone || 'N/A';
-                let course = row.courses || row.Courses || row.course || 'N/A';
-                let qual = row.Qualification || row.qualification || 'N/A';
-                let date = row.Date || row.date || 'N/A';
+                // Har tarah ki heading (Name/name) ko check karega
+                let n = row.Name || row.name || 'N/A';
+                let p = row.Phone || row.phone || 'N/A';
+                let c = row.courses || row.Courses || row.course || 'N/A';
+                let q = row.Qualification || row.qualification || 'N/A';
+                let d = row.Date || row.date || 'N/A';
 
                 html += `<tr>
-                    <td>${name}</td>
-                    <td>${phone}</td>
-                    <td>${course}</td>
-                    <td>${qual}</td>
-                    <td>${date}</td>
+                    <td><strong>${n}</strong></td>
+                    <td>${p}</td>
+                    <td>${c}</td>
+                    <td>${q}</td>
+                    <td>${d}</td>
                 </tr>`;
             });
             document.getElementById('tableBody').innerHTML = html;
         });
     }
+
+    // Close Modal on outside click
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('modal')) { document.getElementById('modal').style.display = 'none'; }
+    }
 </script>
+
 </body>
 </html>
