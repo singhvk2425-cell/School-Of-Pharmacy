@@ -196,7 +196,7 @@
         document.getElementById('sbtn').innerText = "Sending...";
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
         .then(() => { alert("Success! Details Saved."); window.location.reload(); })
-        .catch(() => { alert("Error!"); document.getElementById('sbtn').innerText = "SUBMIT DETAILS"; });
+        .catch(() => { alert("Error! Please check if your Google Script is deployed as 'Anyone'."); document.getElementById('sbtn').innerText = "SUBMIT DETAILS"; });
     });
 
     // Admin Login
@@ -212,13 +212,14 @@
     function loadData() {
         fetch(scriptURL).then(res => res.json()).then(data => {
             let html = "";
+            // Skip header row
             for(let i=1; i < data.length; i++) {
                 html += `<tr>
-                    <td><strong>${data[i][0]}</strong></td>
-                    <td>${data[i][1]}</td>
-                    <td>${data[i][2]}</td>
-                    <td>${data[i][3]}</td>
-                    <td>${data[i][4]}</td>
+                    <td><strong>${data[i][0] || 'N/A'}</strong></td>
+                    <td>${data[i][1] || 'N/A'}</td>
+                    <td>${data[i][2] || 'N/A'}</td>
+                    <td>${data[i][3] || 'N/A'}</td>
+                    <td>${data[i][4] || 'N/A'}</td>
                     <td class="del-col"><button class="del-btn" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
                 </tr>`;
             }
